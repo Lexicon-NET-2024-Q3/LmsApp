@@ -1,0 +1,61 @@
+﻿@page "/courses"
+@rendermode InteractiveWebAssembly
+
+@using LMS.Blazor.Client.Services
+@using LMS.Shared.DTOs
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+
+@attribute [Authorize]
+
+<h1>Getting courses</h1>
+
+
+<button class="btn btn-primary" @onclick="CallAPIAsync">GetCourses</button>
+
+
+@if (demo == null)
+{
+    <p>API not called yet</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in demo)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<AuthorizeView Roles="Admin">
+    <Authorized>
+        <p>Hej auth user</p>
+    </Authorized>
+</AuthorizeView>
+
+
+@code {
+
+    [Inject]
+    private IApiService _apiService { get; set; } = default!;
+    [Inject]
+    private AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
+
+    private List<CourseDto>? demo;
+
+    private async Task CallAPIAsync()
+    {
+        demo = (await _apiService.CallApiAsync2())
+            .ToList();
+    }
+}

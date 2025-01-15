@@ -7,14 +7,14 @@ using System.Security.Claims;
 
 namespace LMS.Blazor.Controller;
 
-[Route("proxy-endpoint")]
+[Route("proxy-endpoint2")]
 [ApiController]
-public class ProxyController : ControllerBase
+public class ProxyController2 : ControllerBase
 {
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly ITokenStorage _tokenService;
 
-    public ProxyController(IHttpClientFactory httpClientFactory, ITokenStorage tokenService)
+    public ProxyController2(IHttpClientFactory httpClientFactory, ITokenStorage tokenService)
     {
         _httpClientFactory = httpClientFactory;
         _tokenService = tokenService;
@@ -28,7 +28,7 @@ public class ProxyController : ControllerBase
     [Authorize]
     public async Task<IActionResult> Proxy() //ToDo send endpoint uri here!
     {
-        string endpoint = "api/demoauth";
+        string endpoint = "api/courses";
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; //Usermanager can be used here! 
 
         if (userId == null)

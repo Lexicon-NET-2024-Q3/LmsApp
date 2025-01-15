@@ -13,7 +13,6 @@ public class ClientApiService(IHttpClientFactory httpClientFactory, NavigationMa
     private readonly JsonSerializerOptions _jsonSerializerOptions = new ()
         { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
-    //ToDo: Make generic
     public async Task<TResponse?> CallApiAsync<TResponse>(string endpoint) 
     {
         var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"proxy-endpoint/{endpoint}");

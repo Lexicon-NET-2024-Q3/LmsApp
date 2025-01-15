@@ -15,9 +15,9 @@ public class CourseController : ControllerBase
 {
     [HttpGet]
     [Authorize]
-    public IActionResult GetDemoAuth()
+    public IActionResult GetCourses()
     {
-        return Ok(new CourseDto[]{ new CourseDto { Id = 1, Name = "Kalle" },
+        return Ok(new CourseDto[]{new  CourseDto { Id = 1, Name = "From course controller" },
                                   new  CourseDto{ Id = 2, Name = "Anka" },
                                   new  CourseDto{ Id = 3, Name = "Nisse" },
                                   new  CourseDto{ Id = 4, Name = "Pelle" }});

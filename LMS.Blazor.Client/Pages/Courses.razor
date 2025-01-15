@@ -55,7 +55,7 @@ else
 
     private async Task CallAPIAsync()
     {
-        demo = (await _apiService.CallApiAsync2())
+        demo = (await _apiService.CallApiAsync2("api/courses"))
             .ToList();
     }
 }

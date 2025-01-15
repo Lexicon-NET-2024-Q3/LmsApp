@@ -59,7 +59,7 @@ else
 
     private async Task CallAPIAsync()
     {
-        demo = (await _apiService.CallApiAsync())
+        demo = (await _apiService.CallApiAsync("api/demoauth"))
             .ToList();
     } 
 }

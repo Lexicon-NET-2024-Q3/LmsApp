@@ -20,15 +20,16 @@ public class ProxyController : ControllerBase
         _tokenService = tokenService;
     }
 
-    [HttpGet]
+    //[HttpGet]
     //[HttpPost]
     //[HttpPut]
     //[HttpDelete]
     //[HttpPatch]
+    [HttpGet("{*endpoint}")]
     [Authorize]
-    public async Task<IActionResult> Proxy() //ToDo send endpoint uri here!
+    public async Task<IActionResult> Proxy(string endpoint) //ToDo send endpoint uri here!
     {
-        string endpoint = "api/demoauth";
+       // string endpoint = "api/demoauth";
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; //Usermanager can be used here! 
 
         if (userId == null)

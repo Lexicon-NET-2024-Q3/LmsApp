@@ -25,10 +25,11 @@ public class ProxyController2 : ControllerBase
     //[HttpPut]
     //[HttpDelete]
     //[HttpPatch]
+    [HttpGet("{*endpoint}")]
     [Authorize]
-    public async Task<IActionResult> Proxy() //ToDo send endpoint uri here!
+    public async Task<IActionResult> Proxy(string endpoint) //ToDo send endpoint uri here!
     {
-        string endpoint = "api/courses";
+       // string endpoint = "api/courses";
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; //Usermanager can be used here! 
 
         if (userId == null)

@@ -14,9 +14,9 @@ public class ClientApiService(IHttpClientFactory httpClientFactory, NavigationMa
         { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
     //ToDo: Make generic
-    public async Task<IEnumerable<DemoDto>> CallApiAsync()
+    public async Task<IEnumerable<DemoDto>> CallApiAsync(string endpoint)
     {
-        var requestMessage = new HttpRequestMessage(HttpMethod.Get, "proxy-endpoint");
+        var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"proxy-endpoint/{endpoint}");
         var response = await httpClient.SendAsync(requestMessage);
 
         if (response.StatusCode == System.Net.HttpStatusCode.Forbidden
@@ -31,9 +31,9 @@ public class ClientApiService(IHttpClientFactory httpClientFactory, NavigationMa
         return demoDtos;
     }
 
-    public async Task<IEnumerable<CourseDto>> CallApiAsync2()
+    public async Task<IEnumerable<CourseDto>> CallApiAsync2(string endpoint)
     {
-        var requestMessage = new HttpRequestMessage(HttpMethod.Get, "proxy-endpoint2");
+        var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"proxy-endpoint2/{endpoint}");
         var response = await httpClient.SendAsync(requestMessage);
 
         if (response.StatusCode == System.Net.HttpStatusCode.Forbidden

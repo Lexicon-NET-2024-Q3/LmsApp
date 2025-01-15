@@ -14,7 +14,7 @@ public class ClientApiService(IHttpClientFactory httpClientFactory, NavigationMa
         { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
     //ToDo: Make generic
-    public async Task<IEnumerable<DemoDto>> CallApiAsync(string endpoint)
+    public async Task<TResponse?> CallApiAsync<TResponse>(string endpoint) 
     {
         var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"proxy-endpoint/{endpoint}");
         var response = await httpClient.SendAsync(requestMessage);
@@ -27,24 +27,7 @@ public class ClientApiService(IHttpClientFactory httpClientFactory, NavigationMa
 
         response.EnsureSuccessStatusCode();
 
-        var demoDtos = await JsonSerializer.DeserializeAsync<List<DemoDto>>(await response.Content.ReadAsStreamAsync(), _jsonSerializerOptions, CancellationToken.None) ?? [];
-        return demoDtos;
-    }
-
-    public async Task<IEnumerable<CourseDto>> CallApiAsync2(string endpoint)
-    {
-        var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"proxy-endpoint2/{endpoint}");
-        var response = await httpClient.SendAsync(requestMessage);
-
-        if (response.StatusCode == System.Net.HttpStatusCode.Forbidden
-           || response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-        {
-            navigationManager.NavigateTo("AccessDenied");
-        }
-
-        response.EnsureSuccessStatusCode();
-
-        var demoDtos = await JsonSerializer.DeserializeAsync<List<CourseDto>>(await response.Content.ReadAsStreamAsync(), _jsonSerializerOptions, CancellationToken.None) ?? [];
+        var demoDtos = await JsonSerializer.DeserializeAsync<TResponse>(await response.Content.ReadAsStreamAsync(), _jsonSerializerOptions, CancellationToken.None);
         return demoDtos;
     }
 }

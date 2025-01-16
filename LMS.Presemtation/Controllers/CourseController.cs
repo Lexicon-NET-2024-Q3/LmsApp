@@ -21,5 +21,17 @@ public class CourseController : ControllerBase
                                   new  CourseDto{ Id = 2, Name = "Anka" },
                                   new  CourseDto{ Id = 3, Name = "Nisse" },
                                   new  CourseDto{ Id = 4, Name = "Pelle" }});
+    } 
+    
+    [HttpPost]
+    [Authorize]
+    public IActionResult CreateCourses(CourseDto courseDto)
+    {
+        var returnCourse = new CourseDto
+        {
+            Id = courseDto.Id,
+            Name = courseDto.Name
+        };
+        return Ok(returnCourse);
     }
 }

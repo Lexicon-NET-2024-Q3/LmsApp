@@ -12,6 +12,7 @@
 
 
 <button class="btn btn-primary" @onclick="CallAPIAsync">GetCourses</button>
+<button class="btn btn-primary" @onclick="CreateCourseAsync">PostCourse</button>
 
 
 @if (demo == null)
@@ -43,6 +44,18 @@ else
     </Authorized>
 </AuthorizeView>
 
+@if(courseDto is null)
+{
+    <p>No value</p>
+}
+else
+{
+    <h4>After post</h4>
+    <p>Id:   @courseDto?.Id</p>
+    <p>Name: @courseDto?.Name</p>
+}
+
+
 
 @code {
 
@@ -52,9 +65,16 @@ else
     private AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
 
     private List<CourseDto>? demo;
+    private CourseDto? courseDto;
 
     private async Task CallAPIAsync()
     {
         demo = (await _apiService.CallApiAsync<IEnumerable<CourseDto>>("api/courses"))?.ToList() ?? [];
+    } 
+
+    private async Task CreateCourseAsync()
+    {
+        var dto = new CourseDto { Id = 1, Name = "Created at blazor" };
+        courseDto = (await _apiService.PostAsync<CourseDto, CourseDto>("api/courses", dto));
     }
 }

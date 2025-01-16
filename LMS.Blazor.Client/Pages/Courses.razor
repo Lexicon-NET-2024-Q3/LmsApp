@@ -69,7 +69,7 @@ else
 
     private async Task CallAPIAsync()
     {
-        demo = (await _apiService.CallApiAsync<IEnumerable<CourseDto>>("api/courses"))?.ToList() ?? [];
+        demo = (await _apiService.GetAsync<IEnumerable<CourseDto>>("api/courses"))?.ToList() ?? [];
     } 
 
     private async Task CreateCourseAsync()

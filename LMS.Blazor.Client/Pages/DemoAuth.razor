@@ -59,6 +59,6 @@ else
 
     private async Task CallAPIAsync()
     {
-        demo = (await _apiService.CallApiAsync<IEnumerable<DemoDto>>("api/demoauth"))?.ToList() ?? [];
+        demo = (await _apiService.GetAsync<IEnumerable<DemoDto>>("api/demoauth"))?.ToList() ?? [];
     } 
 }
